@@ -23,12 +23,11 @@ From: drtools/alpine-miniconda
   export DEBIAN_FRONTEND=noninteractive
   apk update && apk upgrade
   apk add R
-  # Install pip packages
-  pip3 install MACS3
   # Install conda packages
   conda install -y pyyaml
   conda install -y -c anaconda pandas
   conda install -y -c conda-forge numpy
+  conda install -y -c bioconda macs2
   conda install -y -c bioconda samtools
   conda install -y -c bioconda bowtie2
   conda install -y -c bioconda picard
