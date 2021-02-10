@@ -23,11 +23,6 @@ From: drtools/alpine-miniconda
   export DEBIAN_FRONTEND=noninteractive
   apk update && apk upgrade
   apk add R
-  # Install miniconda
-  wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh \
-       -O miniconda.sh
-  bash miniconda.sh -b -p /opt/miniconda
-  PATH="/opt/miniconda/bin:$PATH"
   # Install pip packages
   pip3 install MACS3
   # Install conda packages
