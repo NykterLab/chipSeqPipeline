@@ -1,5 +1,5 @@
 BootStrap: docker
-From: alpine:latest
+From: drtools/alpine-miniconda
 
 %labels
 
