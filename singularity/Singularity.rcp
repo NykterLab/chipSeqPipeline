@@ -22,10 +22,7 @@ From: alpine:latest
 
   export DEBIAN_FRONTEND=noninteractive
   apk update && apk upgrade
-  apk add gzip wget python3 python3-pip r-base pandoc pandoc-citeproc
-  R -e "install.packages('rmarkdown', repos = 'https://cloud.r-project.org')"
-  R -e "install.packages('knitr', repos = 'https://cloud.r-project.org')"
-  R -e "install.packages('DT', repos = 'https://cloud.r-project.org')"
+  apk add R
   # Install miniconda
   wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh \
        -O miniconda.sh
