@@ -22,15 +22,7 @@ From: alpine:latest
 
   export DEBIAN_FRONTEND=noninteractive
   apk update && apk upgrade
-  apk install -y gzip
-  apk install -y wget
-  # Install python and pip
-  apk install -y python3
-  apk install -y python3-pip
-  # Install R, Rmarkdown and Pandoc for reporting
-  apk install -y r-base
-  apk install -y pandoc
-  apk install -y pandoc-citeproc
+  apk add gzip wget python3 python3-pip r-base pandoc pandoc-citeproc
   R -e "install.packages('rmarkdown', repos = 'https://cloud.r-project.org')"
   R -e "install.packages('knitr', repos = 'https://cloud.r-project.org')"
   R -e "install.packages('DT', repos = 'https://cloud.r-project.org')"
