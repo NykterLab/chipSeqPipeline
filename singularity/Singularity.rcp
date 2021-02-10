@@ -21,16 +21,16 @@ From: alpine:latest
 %post
 
   export DEBIAN_FRONTEND=noninteractive
-  apt-get update
-  apt-get install -y gzip
-  apt-get install -y wget
+  apk update && apk upgrade
+  apk install -y gzip
+  apk install -y wget
   # Install python and pip
-  apt-get install -y python3
-  apt-get install -y python3-pip
+  apk install -y python3
+  apk install -y python3-pip
   # Install R, Rmarkdown and Pandoc for reporting
-  apt-get install -y r-base
-  apt-get install -y pandoc
-  apt-get install -y pandoc-citeproc
+  apk install -y r-base
+  apk install -y pandoc
+  apk install -y pandoc-citeproc
   R -e "install.packages('rmarkdown', repos = 'https://cloud.r-project.org')"
   R -e "install.packages('knitr', repos = 'https://cloud.r-project.org')"
   R -e "install.packages('DT', repos = 'https://cloud.r-project.org')"
