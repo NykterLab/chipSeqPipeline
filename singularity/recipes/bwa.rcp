@@ -3,7 +3,7 @@
 ################################################################################
 # BUILD ------------------------------------------------------------------------
 BootStrap: localimage
-From: ./build/base
+From: ./base
 Stage: build
 
 %post
@@ -30,7 +30,7 @@ Stage: build
 
 # PRODUCTION -------------------------------------------------------------------
 BootStrap: localimage
-From: ./build/base
+From: ./base
 Stage: production
 
 %labels
