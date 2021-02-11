@@ -1,6 +1,14 @@
 BootStrap: docker
 From: alpine:latest
 
+%labels
+
+  Author "T.Bersez"
+  Version 1.0
+
+%environment
+
+
 %post
 
   apk update && apk upgrade
@@ -44,11 +52,7 @@ From: alpine:latest
   make install
   cd ..
 
-%labels
+%test
 
-  Author "T.Bersez"
-  Version 1.0
-
-%help
-
-%environment
+  bedtools --version
+  samtools --version
