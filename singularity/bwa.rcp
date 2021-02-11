@@ -44,13 +44,17 @@ Stage: production
   BWA image for CHIP-seq pipeline
   Based on base image.
 
+%environment
+
+  export PATH="/usr:$PATH"
+
 %post
 
   apk update
 
 %files from build
 
-  /install_src/bwa/bwa /usr/
+  /install_src/bwa/bwa /usr
 
 %test
 

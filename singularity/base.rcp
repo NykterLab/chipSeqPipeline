@@ -92,7 +92,7 @@ Stage: production
 
 %files from build
 
-  /install_src/bedtools2/bin/ /usr/
+  /install_src/bedtools2/bin/ /usr
   /install_deploy/bin /usr
   /install_deploy/include /usr
   /install_deploy/lib /usr
