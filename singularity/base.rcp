@@ -89,6 +89,8 @@ Stage: production
   apk add libbz2
   apk add python3
   ln -s `which python3` /bin/python
+  apk add py-pip
+  pip install pyyaml
 
 %files from build
 
