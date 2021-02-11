@@ -17,18 +17,18 @@ Stage: build
   apk add autoconf
   apk add ncurses
   apk add ncurses-dev
+  mkdir /install_src
 
 %appinstall bedtools
 
-   mkdir /install_src
    cd /install_src
    git clone https://github.com/arq5x/bedtools2/
    cd bedtools2
    make -j 8
+   ls
 
 %appinstall samtools
 
-  mkdir /install_src
   cd /install_src
   git clone https://github.com/samtools/htslib/
   cd htslib
