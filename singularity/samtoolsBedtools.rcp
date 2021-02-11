@@ -35,7 +35,6 @@ Stage: build
    git clone https://github.com/arq5x/bedtools2/
    cd bedtools2
    make -j 8 -s
-   ls
 
 ############
 # SAMTOOLS #
@@ -45,11 +44,12 @@ Stage: build
 
   cd /install_src
   git clone https://github.com/samtools/htslib/
+  git submodule update --init --recursive
   cd htslib
   autoheader
   autoconf
   ./configure --prefix=/install_deploy
-  make -j 8 --silent
+  make -j 8 -s
   make install
   cd ..
   rm -rf samtools
@@ -58,7 +58,7 @@ Stage: build
   autoheader
   autoconf -Wno-syntax
   ./configure -- prefix=/install_deploy
-  make -j 8 --silent
+  make -j 8 -s
   make install
   cd ..
 
@@ -66,6 +66,12 @@ Stage: build
 Bootstrap: docker
 From: alpine:latest
 Stage: production
+
+%labels
+
+  Author "Thomas Bersez"
+  Version 1.0
+  Institution "NykterLab"
 
 %post
 
@@ -86,12 +92,6 @@ Stage: production
   /install_deploy/include /usr
   /install_deploy/lib /usr
   /install_deploy/share /usr
-
-%labels
-
-  Author "Thomas Bersez"
-  Version 1.0
-  Institution "NykterLab"
 
 %test
 
