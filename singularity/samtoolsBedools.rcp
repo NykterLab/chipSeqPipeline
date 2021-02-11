@@ -1,0 +1,54 @@
+BootStrap: docker
+From: alpine:latest
+
+%post
+
+  apk update && apk upgrade
+  apk add bash
+  apk add git
+  apk add build-base
+  apk add zlib
+  apk add zlib-dev
+  apk add bzip2
+  apk add bzip2-dev
+  apk add xz
+  apk add xz-dev
+  apk add python3
+  ln -s `which python3` /bin/python
+
+%appinstall bedtools
+
+  # Create install dir
+  mkdir /install_src && cd /install_src
+  # Install bedtools2
+  git clone https://github.com/arq5x/bedtools2/
+  cd bedtools2
+  make -j 8
+  cd ..
+  git clone https://github.com/samtools/htslib/
+  cd htslib
+  autoheader
+  autoconf
+  ./configure --prefix=/install_deploy
+  make -j 8
+  make install
+  cd ..
+  # Install samtools
+  rm -rf samtools
+  git clone https://github.com/samtools/samtools
+  cd samtools
+  autoheader
+  autoconf -Wno-syntax
+  ./configure -- prefix=/install_deploy
+  make -j 8
+  make install
+  cd ..
+
+%labels
+
+  Author "T.Bersez"
+  Version 1.0
+
+%help
+
+%environment
