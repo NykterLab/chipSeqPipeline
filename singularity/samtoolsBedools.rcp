@@ -57,7 +57,7 @@ From: alpine:latest
   make install
   cd ..
 
-%test
-
-  bedtools --version
-  samtools --version
+# %test
+#
+#   bedtools --version
+#   samtools --version
