@@ -44,8 +44,8 @@ Stage: build
 
   cd /install_src
   git clone https://github.com/samtools/htslib/
-  git submodule update --init --recursive
   cd htslib
+  git submodule update --init --recursive
   autoheader
   autoconf
   ./configure --prefix=/install_deploy
