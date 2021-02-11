@@ -26,9 +26,6 @@ Stage: compile
   # Install bedtools2
   git clone https://github.com/arq5x/bedtools2/
   cd bedtools2
-  autoheader
-  autoconf
-  ./configure --prefix=/install_deploy
   make -j 8
   cd ..
   # Install samtools
@@ -61,6 +58,7 @@ Stage: release
   /install_deploy/include /usr
   /install_deploy/lib /usr
   /install_deploy/share /usr
+  /install_src/bedtools2/bin/ /usr/
 
 %labels
 
