@@ -22,6 +22,7 @@ From: alpine:latest
   apk add bzip2-dev
   apk add xz
   apk add xz-dev
+  apk add ncurses-dev
   apk add python3
   ln -s `which python3` /bin/python
 
