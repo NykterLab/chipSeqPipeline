@@ -50,7 +50,7 @@ Stage: production
 
 %files from build
 
-  /install_src/bwa/bin /usr/
+  /install_src/bwa/bwa /usr/
 
 %test
 
