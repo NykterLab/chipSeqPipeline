@@ -59,4 +59,4 @@ Stage: production
 %test
 
   # Trick to print bwa version ...
-  bwa || trues
+  bwa || true
