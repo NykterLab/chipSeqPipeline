@@ -73,6 +73,11 @@ Stage: production
   Version 1.0
   Institution "NykterLab"
 
+%help
+
+  Base image for CHIP-seq pipeline. Contains samtools, bedtools and python3.
+  Based on Alpine Linux (latest).
+
 %post
 
   apk update
@@ -95,5 +100,7 @@ Stage: production
 
 %test
 
+  python --version
   samtools --version
   bedtools --version
+  cat /etc/os-release
