@@ -44,9 +44,9 @@ Stage: production
   BWA image for CHIP-seq pipeline
   Based on base image.
 
-%environment
-
-  export PATH="/usr:$PATH"
+# %environment
+#
+#   export PATH="/usr:$PATH"
 
 %post
 
@@ -58,4 +58,4 @@ Stage: production
 
 %test
 
-  bwa --version
+  bwa
