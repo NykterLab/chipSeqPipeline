@@ -15,6 +15,7 @@ From: alpine:latest
   apk add bash
   apk add git
   apk add build-base
+  apk add autoconf
   apk add zlib
   apk add zlib-dev
   apk add bzip2
@@ -24,7 +25,7 @@ From: alpine:latest
   apk add python3
   ln -s `which python3` /bin/python
 
-%appinstall bedtools
+%appinstall bedtoolsSamtools
 
   # Create install dir
   mkdir /install_src && cd /install_src
@@ -33,6 +34,7 @@ From: alpine:latest
   cd bedtools2
   make -j 8
   cd ..
+  # Install samtools
   git clone https://github.com/samtools/htslib/
   cd htslib
   autoheader
@@ -41,7 +43,6 @@ From: alpine:latest
   make -j 8
   make install
   cd ..
-  # Install samtools
   rm -rf samtools
   git clone https://github.com/samtools/samtools
   cd samtools
