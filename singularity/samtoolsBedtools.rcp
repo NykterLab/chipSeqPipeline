@@ -1,66 +1,59 @@
 BootStrap: docker
-From: alpine:latest
+From: alpine:3.10.3
 Stage: compile
 
 %post
+    apk update
+    apk add bash
+    apk add git
+    apk add build-base
+    apk add zlib
+    apk add zlib-dev
+    apk add bzip2
+    apk add bzip2-dev
+    apk add xz
+    apk add xz-dev
+    apk add python3
+    ln -s `which python3` /bin/python
 
-  apk update && apk upgrade
-  apk add bash
-  apk add git
-  apk add build-base
-  apk add autoconf
-  apk add zlib
-  apk add zlib-dev
-  apk add bzip2
-  apk add bzip2-dev
-  apk add xz
-  apk add xz-dev
-  apk add ncurses-dev
-  apk add python3
-  ln -s `which python3` /bin/python
+%apprun bedtools
+   exec bedtools
 
-%appinstall bedtoolsSamtools
+%appinstall bedtools
+   mkdir /install_src
+   cd /install_src
+   git clone https://github.com/arq5x/bedtools2/
+   cd bedtools2
+   make -j 8
 
-  # Create install dir
-  mkdir /install_src && cd /install_src
-  # Install bedtools2
-  git clone https://github.com/arq5x/bedtools2/
-  cd bedtools2
-  make -j 8
-  cd ..
-  # Install samtools
-  git clone https://github.com/samtools/htslib/
-  cd htslib
-  git submodule update --init --recursive
-  autoheader
-  autoconf
-  ./configure --prefix=/install_deploy
-  make -j 8
-  make install
-  cd ..
-  rm -rf samtools
-  git clone https://github.com/samtools/samtools
-  cd samtools
-  autoheader
-  autoconf -Wno-syntax
-  ./configure -- prefix=/install_deploy
-  make -j 8
-  make install
-  cd ..
+%apphelp bedtools
+   Bedtools.
+
 
 Bootstrap: docker
 From: alpine:3.10.3
 Stage: release
 
-%files from compile
+%post
+    apk update
+    apk add zlib
+    apk add bzip2
+    apk add xz
+    apk add libgcc
+    apk add libstdc++
+    apk add libbz2
 
-  /install_deploy/bin /usr
-  /install_deploy/include /usr
-  /install_deploy/lib /usr
-  /install_deploy/share /usr
-  /install_src/bedtools2/bin/ /usr/
+%files from compile
+    /install_src/bedtools2/bin/ /usr/
+
+%apphelp bedtools
+    Bedtools 2.18 ( as of 18.12.2019 )
+    https://github.com/arq5x/bedtools2/
+
+
+%apprun bedtools
+    exec bedtools
 
 %labels
-
-  Author "T.Bersez"
-  Version 1.0
+    Author "Thomas Bersez"
+    Version 1.0
