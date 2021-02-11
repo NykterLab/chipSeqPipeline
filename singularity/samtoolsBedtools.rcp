@@ -24,7 +24,7 @@ Stage: build
    cd /install_src
    git clone https://github.com/arq5x/bedtools2/
    cd bedtools2
-   make -j 8
+   make -j 8 -s
    ls
 
 %appinstall samtools
@@ -35,7 +35,7 @@ Stage: build
   autoheader
   autoconf
   ./configure --prefix=/install_deploy
-  make -j 8
+  make -j 8 --silent
   make install
   cd ..
   rm -rf samtools
@@ -44,7 +44,7 @@ Stage: build
   autoheader
   autoconf -Wno-syntax
   ./configure -- prefix=/install_deploy
-  make -j 8
+  make -j 8 --silent
   make install
   cd ..
 
