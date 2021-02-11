@@ -37,6 +37,7 @@ From: alpine:latest
   # Install samtools
   git clone https://github.com/samtools/htslib/
   cd htslib
+  git submodule update --init --recursive
   autoheader
   autoconf
   ./configure --prefix=/install_deploy
