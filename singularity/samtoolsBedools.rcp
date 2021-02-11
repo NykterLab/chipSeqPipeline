@@ -1,15 +1,6 @@
 BootStrap: docker
 From: alpine:latest
-
-%labels
-
-  Author "T.Bersez"
-  Version 1.0
-
-%environment
-
-  export PATH="/install_deploy/bedtools2/bin/:$PATH"
-  export PATH="/install_deploy/samtools/bin/:$PATH"
+Stage: compile
 
 %post
 
@@ -35,6 +26,9 @@ From: alpine:latest
   # Install bedtools2
   git clone https://github.com/arq5x/bedtools2/
   cd bedtools2
+  autoheader
+  autoconf
+  ./configure --prefix=/install_deploy
   make -j 8
   cd ..
   # Install samtools
@@ -57,7 +51,18 @@ From: alpine:latest
   make install
   cd ..
 
-# %test
-#
-#   bedtools --version
-#   samtools --version
+Bootstrap: docker
+From: alpine:3.10.3
+Stage: release
+
+%files from compile
+
+  /install_deploy/bin /usr
+  /install_deploy/include /usr
+  /install_deploy/lib /usr
+  /install_deploy/share /usr
+
+%labels
+
+  Author "T.Bersez"
+  Version 1.0
