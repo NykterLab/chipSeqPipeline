@@ -16,8 +16,6 @@ Stage: build
   apk add bzip2
   apk add bzip2-dev
   apk add ncurses-dev
-  apk add python3
-  ln -s `which python3` /bin/python
   mkdir /install_src
 
 #######
