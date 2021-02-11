@@ -8,8 +8,8 @@ From: alpine:latest
 
 %environment
 
-  export PATH="/install_src/bedtools2/bin/:$PATH"
-  export PATH="/install_src/samtools/bin/:$PATH"
+  export PATH="/install_deploy/bedtools2/bin/:$PATH"
+  export PATH="/install_deploy/samtools/bin/:$PATH"
 
 %post
 
