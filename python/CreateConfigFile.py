@@ -72,9 +72,10 @@ for line in sampleFileReader:
         if args.layout == "paired":
             dictStore[line["SAMPLE"]][line["REPLICATE"]][line["LIBRARY"]]\
             [line["LANE"]]["R2"] = line["R2"]
-dictStorePrint = dictStore[]
+dictStorePrint = {}
+dictStorePrint["samples"] = dictStore
 # PRINT COHORT STRUCTURE -------------------------------------------------------
-print(yaml.dump(dictStore,
+print(yaml.dump(dictStorePrint,
                 allow_unicode=True,
                 default_flow_style=False,
                 indent=2))
@@ -85,4 +86,4 @@ with open(args.outputDir + "config.yaml", "w") as outFile:
     outFile.write("slurmLogs: {}\n".format(args.outputDir + "slurm_logs/"))
     outFile.write("layout: {}\n".format(args.layout))
     outFile.write("genome: {}\n".format(args.genome))
-    outFile.write("samples: {}\n".format(args.layout))
+    outFile.write(yaml.dump(dictStorePrint))
