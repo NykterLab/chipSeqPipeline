@@ -88,6 +88,7 @@ with open(args.outputDir + "config.yaml", "w") as outFile:
     outFile.write("# --- CHIP-seq pipeline configuration file ---\n")
     outFile.write("config: {}config.yaml\n".format(args.outputDir))
     outFile.write("outputDir: {}\n".format(args.outputDir))
+    outFile.write("execDir: {}\n".format(args.execDir)
     outFile.write("sampleSheet: {}\n".format(args.sampleSheet))
     outFile.write("slurmLogs: {}\n".format(args.outputDir + "slurm_logs/"))
     outFile.write("layout: {}\n".format(args.layout))
