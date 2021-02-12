@@ -20,6 +20,8 @@ parser.add_argument('--outputDir', dest='outputDir', action='store',
 help='Absolute path to the output directory, will be created MUST NOT EXIST.')
 parser.add_argument('--controlTracks', dest='controlTracks', action='store',
 help='Absolute path to control tracks / TODO.')
+parser.add_argument('--execDir', dest='execDir', action='store',
+help='Path to pipeline git repository.')
 args = parser.parse_args()
 # CHECK ARGUMENTS --------------------------------------------------------------
 # OUTPUT DIRECTORY ---
@@ -30,13 +32,16 @@ if os.path.isdir(args.outputDir):
 if not os.path.isfile(args.sampleSheet):
     raise Exception("Cannot find sample sheet at {}".format(args.sampleSheet))
 # CONTROL TRACKS ---
-
+# # TODO: add control tracks support
 # LAYOUT ---
 if args.layout not in layouts:
     raise Exception("Invalid layout, choose from: {}".format(layouts))
 # GENOME ---
 if not os.path.isfile(args.genome):
-    raise Exception("Genome file ({}) not found.".format(layouts))
+    raise Exception("Genome file ({}) not found.".format(args.genome))
+# EXECDIR ---
+if not os.path.isdir(args.execDir):
+    raise Exception("Code folder {} not found.".format(args.execDir))
 # PARSE SAMPLE FILE ------------------------------------------------------------
 sampleFileAsDict = csv.DictReader(open(args.sampleSheet), delimiter="\t")
 print(i for i in sampleFileAsDict)
@@ -81,6 +86,7 @@ print(yaml.dump(dictStorePrint,
                 indent=2))
 with open(args.outputDir + "config.yaml", "w") as outFile:
     outFile.write("# --- CHIP-seq pipeline configuration file ---\n")
+    outFile.write("config: {}config.yaml\n".format(args.outputDir))
     outFile.write("outputDir: {}\n".format(args.outputDir))
     outFile.write("sampleSheet: {}\n".format(args.sampleSheet))
     outFile.write("slurmLogs: {}\n".format(args.outputDir + "slurm_logs/"))
