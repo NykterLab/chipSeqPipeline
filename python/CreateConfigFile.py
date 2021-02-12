@@ -42,6 +42,8 @@ if not os.path.isfile(args.genome):
 # EXECDIR ---
 if not os.path.isdir(args.execDir):
     raise Exception("Code folder {} not found.".format(args.execDir))
+if not args.execDir.endswith("/"):
+    args.execDir = args.execDir + "/"
 # PARSE SAMPLE FILE ------------------------------------------------------------
 sampleFileAsDict = csv.DictReader(open(args.sampleSheet), delimiter="\t")
 print(i for i in sampleFileAsDict)
@@ -88,7 +90,7 @@ with open(args.outputDir + "config.yaml", "w") as outFile:
     outFile.write("# --- CHIP-seq pipeline configuration file ---\n")
     outFile.write("config: {}config.yaml\n".format(args.outputDir))
     outFile.write("outputDir: {}\n".format(args.outputDir))
-    outFile.write("execDir: {}\n".format(args.execDir)
+    outFile.write("execDir: {}\n".format(args.execDir))
     outFile.write("sampleSheet: {}\n".format(args.sampleSheet))
     outFile.write("slurmLogs: {}\n".format(args.outputDir + "slurm_logs/"))
     outFile.write("layout: {}\n".format(args.layout))
