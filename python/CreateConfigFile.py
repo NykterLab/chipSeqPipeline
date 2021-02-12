@@ -14,8 +14,8 @@ parser.add_argument('--sampleSheet', dest='sampleSheet', action='store',
 help='Absolute path to sample sheet.')
 parser.add_argument('--layout', dest='layout', action='store',
 help='Sequencing layout, single or paired.')
-parser.add_argument('--bowtie2Index', dest='bowtie2Index', action='store',
-help='Absolute path to Bowtie2 index directory + index prefix.')
+parser.add_argument('--genome', dest='bowtie2Index', action='store',
+help='Absolute path to reference genome; must be indexed with bwa.')
 parser.add_argument('--outputDir', dest='outputDir', action='store',
 help='Absolute path to the output directory, will be created MUST NOT EXIST.')
 parser.add_argument('--controlTracks', dest='controlTracks', action='store',
