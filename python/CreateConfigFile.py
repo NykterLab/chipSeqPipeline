@@ -14,7 +14,7 @@ parser.add_argument('--sampleSheet', dest='sampleSheet', action='store',
 help='Absolute path to sample sheet.')
 parser.add_argument('--layout', dest='layout', action='store',
 help='Sequencing layout, single or paired.')
-parser.add_argument('--genome', dest='bowtie2Index', action='store',
+parser.add_argument('--genome', dest='genome', action='store',
 help='Absolute path to reference genome; must be indexed with bwa.')
 parser.add_argument('--outputDir', dest='outputDir', action='store',
 help='Absolute path to the output directory, will be created MUST NOT EXIST.')
@@ -34,6 +34,9 @@ if not os.path.isfile(args.sampleSheet):
 # LAYOUT ---
 if args.layout not in layouts:
     raise Exception("Invalid layout, choose from: {}".format(layouts))
+# GENOME ---
+if not os.path.isfile(args.genome):
+    raise Exception("Genome file ({}) not found.".format(layouts))
 # PARSE SAMPLE FILE ------------------------------------------------------------
 sampleFileAsDict = csv.DictReader(open(args.sampleSheet), delimiter="\t")
 print(i for i in sampleFileAsDict)
@@ -81,4 +84,5 @@ with open(args.outputDir + "config.yaml", "w") as outFile:
     outFile.write("sampleSheet: {}\n".format(args.sampleSheet))
     outFile.write("slurmLogs: {}\n".format(args.outputDir + "slurm_logs/"))
     outFile.write("layout: {}\n".format(args.layout))
+    outFile.write("genome: {}\n".format(args.genome))
     outFile.write("samples: {}\n".format(args.layout))
