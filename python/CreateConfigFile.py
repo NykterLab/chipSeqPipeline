@@ -79,6 +79,11 @@ for line in sampleFileReader:
         if args.layout == "paired":
             dictStore[line["SAMPLE"]][line["REPLICATE"]][line["LIBRARY"]]\
             [line["LANE"]]["R2"] = line["R2"]
+        readTag = "\'@RG\\tID:{0}\\tLB:{1}\\tPL:{2}\\tSM:{3}\'".\
+        format(line["SAMPLE"] + "_" + line["REPLICATE"],
+               line["LIBRARY"], "ILLUMINA", line["LANE"])
+        dictStore[line["SAMPLE"]][line["REPLICATE"]][line["LIBRARY"]]\
+        [line["LANE"]]["rgTag"] = readTag
 dictStorePrint = {}
 dictStorePrint["samples"] = dictStore
 # PRINT COHORT STRUCTURE -------------------------------------------------------
