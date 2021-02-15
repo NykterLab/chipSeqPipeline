@@ -87,10 +87,6 @@ for line in sampleFileReader:
 dictStorePrint = {}
 dictStorePrint["samples"] = dictStore
 # PRINT COHORT STRUCTURE -------------------------------------------------------
-print(yaml.dump(dictStorePrint,
-                allow_unicode=True,
-                default_flow_style=False,
-                indent=2))
 with open(args.outputDir + "config.yaml", "w") as outFile:
     outFile.write("# --- CHIP-seq pipeline configuration file ---\n")
     outFile.write("config: {}config.yaml\n".format(args.outputDir))
