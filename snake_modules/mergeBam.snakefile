@@ -1,9 +1,6 @@
 # BAM MERGING RULES ------------------------------------------------------------
 # FUNCTIONS --------------------------------------------------------------------
-def get_sample_bams():
-    sample = lambda wildcards: config["samples"][wildcards.sample]
-    print(sample)
-    replicate = lambda wildcards: config["samples"][sample][wildcards.replicate]
+def getSampleBams(sample, replicate):
     libs = []
     lanes = []
     for lib in config["samples"][str(sample)][str(replicate)]:
@@ -11,26 +8,26 @@ def get_sample_bams():
             libs.append(lib)
             lanes.append(lane)
     return expand(outputDir + \
-                  "alignments/sorted_reads/sp_{sample}/"
-                  "rep_{replicate}/lib_{library}/lane_{lane}_sorted.bam",
+                  "alignments/sorted_reads/sp_{{sample}}/"
+                  "rep_{{replicate}}/lib_{library}/lane_{lane}_sorted.bam",
                   zip,
                   library = libs,
                   lane = lanes)
 
-def format_bams_input(sample, replicate, input):
+def formatBamsInput(sample, replicate, input):
     return " ".join([" -I " + b for b in input])
 # RULES ------------------------------------------------------------------------
 rule mergeBamPerReplicates:
     """Merge aligned read per replicates."""
     input:
-        bams = get_sample_bams()
+        bams = getSampleBams
     output:
         mergedBam = outputDir + "alignments/replicatesBams/"
         "{sample}_{replicate}_sorted.bam",
         mergedBamIndex = outputDir + "alignments/replicatesBams/"
         "{sample}_{replicate}_sorted.bai"
     params:
-        bamsFormated = format_bams_input
+        bamsFormated = formatBamsInput
     benchmark:
         outputDir + "bench/mergeBamPerReplicates/"
         "sample_merge_{sample}_{replicate}.log"
