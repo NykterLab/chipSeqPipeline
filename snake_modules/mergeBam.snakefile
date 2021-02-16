@@ -20,7 +20,8 @@ def formatBamsInput(sample, replicate, input):
 rule mergeBamPerReplicates:
     """Merge aligned read per replicates."""
     input:
-        bams = getSampleBams
+        bams = lambda wildcards: \
+        getSampleBams(wildcards.sample, wildcards.replicate)
     output:
         mergedBam = outputDir + "alignments/replicatesBams/"
         "{sample}_{replicate}_sorted.bam",
