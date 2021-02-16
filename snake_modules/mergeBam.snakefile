@@ -1,8 +1,9 @@
 # BAM MERGING RULES ------------------------------------------------------------
 # FUNCTIONS --------------------------------------------------------------------
-def get_sample_bams(sample, replicate):
-    print(sample)
-    print(replicate)
+def get_sample_bams():
+    global wildcards
+    sample = wildcards.sample
+    replicate = wildcards.replicate
     libs = []
     lanes = []
     for lib in config["samples"][str(sample)][str(replicate)]:
@@ -22,10 +23,7 @@ def format_bams_input(sample, replicate, input):
 rule mergeBamPerReplicates:
     """Merge aligned read per replicates."""
     input:
-        bams = get_sample_bams(
-        lambda wildcards: config["samples"][wildcards.sample],
-        lambda wildcards: config["samples"][wildcards.sample][wildcards.replicate],
-        )
+        bams = get_sample_bams()
     output:
         mergedBam = outputDir + "alignments/replicatesBams/"
         "{sample}_{replicate}_sorted.bam",
