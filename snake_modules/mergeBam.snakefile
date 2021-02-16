@@ -1,9 +1,9 @@
 # BAM MERGING RULES ------------------------------------------------------------
 # FUNCTIONS --------------------------------------------------------------------
 def get_sample_bams():
-    global wildcards
-    sample = wildcards.sample
-    replicate = wildcards.replicate
+    sample = lambda wildcards: config["samples"][wildcards.sample]
+    print(sample)
+    replicate = lambda wildcards: config["samples"][sample][wildcards.replicate]
     libs = []
     lanes = []
     for lib in config["samples"][str(sample)][str(replicate)]:
