@@ -4,7 +4,7 @@ def getReplicateLanes(wildcards):
     sampleRep = lambda wildcards: config["samples"][wildcards.sample][wildcards.replicate]
     libs = []
     lanes = []
-    for lib in sampleRep:
+    for lib in sampleRep.keys():
         for lane in sampleRep[lib]:
             libs.append(lib)
             lanes.append(lane)
