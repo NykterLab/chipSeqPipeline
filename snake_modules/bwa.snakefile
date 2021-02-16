@@ -20,11 +20,12 @@ def getReadTag(wildcards):
 # RULES ------------------------------------------------------------------------
 rule bwaPerLane:
     """Align reads to reference genome using BWA."""
-    input:
-        if layout == "single":
+    if layout == "single":
+        input:
             ref = genome,
             R1 = getR1
-        if layout == "paired":
+    if layout == "paired":
+        input:
             ref = genome,
             R1 = getR1,
             R2 = getR2
