@@ -4,7 +4,7 @@ def get_sample_bams(replicate):
     print(replicate)
     libs = []
     lanes = []
-    for lib in config["samples"][str(sample)][str(replicate)]:
+    for lib in config["samples"][wildcards.sample][str(replicate)]:
         for lane in config["samples"][str(sample)][str(replicate)][lib]:
             libs.append(lib)
             lanes.append(lane)
