@@ -1,6 +1,6 @@
 # BAM MERGING RULES ------------------------------------------------------------
 # FUNCTIONS --------------------------------------------------------------------
-def get_sample_bams(sample, replicate):
+def get_sample_bams():
     print(sample)
     print(replicate)
     libs = []
