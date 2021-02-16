@@ -22,7 +22,7 @@ def format_bams_input(sample, replicate, input):
 rule mergeBamPerReplicates:
     """Merge aligned read per replicates."""
     input:
-        bams = get_sample_bams(wildcards.sample,wildcards.replicate)
+        bams = get_sample_bams(sample,replicate)
     output:
         mergedBam = outputDir + "alignments/replicatesBams/"
         "{sample}_{replicate}_sorted.bam",
