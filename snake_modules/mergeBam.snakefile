@@ -20,14 +20,14 @@ def format_bams_input(sample, replicate, input):
 rule mergeBamPerReplicates:
     """Merge aligned read per replicates."""
     input:
-        bams = get_sample_bams
+        bams = get_sample_bam
     output:
         mergedBam = outputDir + "alignments/replicatesBams/"
         "{sample}_{replicate}_sorted.bam",
         mergedBamIndex = outputDir + "alignments/replicatesBams/"
         "{sample}_{replicate}_sorted.bai"
     params:
-        format_bams_input
+        bamsFormated = format_bams_input
     benchmark:
         outputDir + "bench/mergeBamPerReplicates/"
         "sample_merge_{sample}_{replicate}.log"
@@ -40,7 +40,7 @@ rule mergeBamPerReplicates:
     shell:
         """
         picard MergeSamFiles \
-        {params} \
+        {params.bamsFormated} \
         -O {output.merged_bam} \
         --REFERENCE_SEQUENCE {genome} \
         --CREATE_INDEX
