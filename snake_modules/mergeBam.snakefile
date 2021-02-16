@@ -1,6 +1,8 @@
 # BAM MERGING RULES ------------------------------------------------------------
 # FUNCTIONS --------------------------------------------------------------------
 def get_sample_bams(sample, replicate):
+    print(sample)
+    print(replicate)
     libs = []
     lanes = []
     for lib in config["samples"][str(sample)][str(replicate)]:
