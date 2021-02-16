@@ -21,9 +21,12 @@ def getReadTag(wildcards):
 rule bwaPerLane:
     """Align reads to reference genome using BWA."""
     input:
-        ref = genome,
-        R1 = getR1,
+        if layout == "single":
+            ref = genome,
+            R1 = getR1
         if layout == "paired":
+            ref = genome,
+            R1 = getR1,
             R2 = getR2
     params:
         tmp_dir = outputDir + "alignments/sorted_reads/"
