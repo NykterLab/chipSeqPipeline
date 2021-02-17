@@ -33,7 +33,7 @@ rule mergeBamPerReplicates:
         mergedBamIndex = outputDir + "alignments/sp_{sample}/"
         "{replicate}-sorted.bai"
     params:
-        bamsFormated = formatBamsInput
+        bamsFormated = formatBamsInput()
     benchmark:
         outputDir + "bench/mergeBamPerReplicates/"
         "sample_merge_{sample}_{replicate}.log"
