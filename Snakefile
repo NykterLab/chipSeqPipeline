@@ -43,7 +43,9 @@ def getMerged():
     samples = []
     reps = []
     for sample in config["samples"].keys():
+        print(sample)
         for rep in config["samples"][sample].keys():
+            print(rep)
             samples.append(sample)
             reps.append(reps)
     print(expand(outputDir + "alignments/sp_{sample}/"
