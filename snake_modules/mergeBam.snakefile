@@ -3,7 +3,6 @@
 def getRepStructure(wildcards):
     return config["samples"][wildcards.sample][wildcards.replicate]
 
-
 def getReplicateBams(wildcards):
     replicateStruct = getRepStructure(wildcards)
     libs = []
@@ -28,9 +27,9 @@ rule mergeBamPerReplicates:
         bams = getReplicateBams
     output:
         mergedBam = outputDir + "alignments/replicatesBams/"
-        "{sample}_{replicate}_sorted.bam",
+        "{sample}-{replicate}-sorted.bam",
         mergedBamIndex = outputDir + "alignments/replicatesBams/"
-        "{sample}_{replicate}_sorted.bai"
+        "{sample}-{replicate}-sorted.bai"
     params:
         bamsFormated = formatBamsInput
     benchmark:
