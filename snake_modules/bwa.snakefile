@@ -43,8 +43,8 @@ if layout == "single":
             + stamp + "{replicate}-{sample}-{library}-{lane}_bwaPerLane.log"
         singularity:
             "{}singularity/build/bwa".format(execDir)
-        run:
-            shell("""
+        shell:
+            """
             mkdir -p {params.tmp_dir}
             bwa mem \
             -t 8 \
@@ -54,7 +54,7 @@ if layout == "single":
             | samtools view -@ 8 -bS - \
             | samtools sort -T {params.tmp_dir} -@ 8 - > {output}
             rmdir {params.tmp_dir}
-            """)
+            """
 
 elif layout == "paired":
     rule bwaPerLane:
@@ -82,8 +82,8 @@ elif layout == "paired":
             + stamp + "{replicate}-{sample}-{library}-{lane}_bwaPerLane.log"
         singularity:
             "{}singularity/build/bwa".format(execDir)
-        run:
-            shell("""
+        shell:
+            """
             mkdir -p {params.tmp_dir}
             bwa mem \
             -t 8 \
@@ -94,4 +94,4 @@ elif layout == "paired":
             | samtools view -@ 8 -bS - \
             | samtools sort -T {params.tmp_dir} -@ 8 - > {output}
             rmdir {params.tmp_dir}
-            """)
+            """
