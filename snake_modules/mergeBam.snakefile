@@ -1,6 +1,7 @@
 # BAM MERGING RULES ------------------------------------------------------------
 # FUNCTIONS --------------------------------------------------------------------
 def getRepStructure(wildcards):
+    print(wildcards.replicate)
     return config["samples"][wildcards.sample][wildcards.replicate]
 
 def getReplicateBams(wildcards):
@@ -8,6 +9,7 @@ def getReplicateBams(wildcards):
     libs = []
     lanes = []
     for lib in replicateStruct.keys():
+        print(lib)
         for lane in replicateStruct[lib]:
             libs.append(lib)
             lanes.append(lane)
