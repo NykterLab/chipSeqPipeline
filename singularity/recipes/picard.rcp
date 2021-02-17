@@ -55,7 +55,3 @@ Stage: production
 
   /usr/local/bin/picard.jar /usr/local/bin/
   /usr/local/bin/picard /usr/local/bin/
-
-%test
-
-  /usr/local/bin/picard MergeSamFiles -version
