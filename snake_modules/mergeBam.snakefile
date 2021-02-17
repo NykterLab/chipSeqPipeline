@@ -1,11 +1,15 @@
 # BAM MERGING RULES ------------------------------------------------------------
 # FUNCTIONS --------------------------------------------------------------------
-def getReplicateLanes(wildcards):
+def getRepStructure(wildcards):
+    return config["samples"][wildcards.sample][wildcards.replicate]
+
+
+def getReplicateBams(wildcards):
+    replicateStruct = getRepStructure()
     libs = []
     lanes = []
-    for lib in config["samples"][wildcards.sample][wildcards.replicate]:
-        for lane in config["samples"][wildcards.sample][wildcards.replicate]\
-        [lib]:
+    for lib in replicateStruct:
+        for lane in replicateStruct[lib]:
             libs.append(lib)
             lanes.append(lane)
     return expand(outputDir + \
@@ -21,7 +25,7 @@ def formatBamsInput(input):
 rule mergeBamPerReplicates:
     """Merge aligned read per replicates."""
     input:
-        bams = getReplicateLanes
+        bams = getReplicateBams
     output:
         mergedBam = outputDir + "alignments/replicatesBams/"
         "{sample}_{replicate}_sorted.bam",
