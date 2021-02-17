@@ -42,8 +42,8 @@ def getLanes():
 def getMerged():
     samples = []
     reps = []
-    for sample in config["samples"]:
-        for rep in config["samples"][str(sample)]:
+    for sample in config["samples"].keys():
+        for rep in config["samples"][sample].keys():
             samples.append(sample)
             reps.append(reps)
     print(expand(outputDir + "alignments/sp_{sample}/"
