@@ -81,6 +81,7 @@ Stage: production
 %post
 
   apk update
+  apk add bash
   apk add zlib
   apk add bzip2
   apk add xz
