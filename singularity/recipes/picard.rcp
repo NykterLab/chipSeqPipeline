@@ -19,8 +19,8 @@ Stage: build
 
 %appinstall picard
 
-  wget https://github.com/broadinstitute/picard/releases/download/\
-  2.20.5/picard.jar
+  wget \
+  https://github.com/broadinstitute/picard/releases/download/2.20.5/picard.jar
   mv picard.jar /usr/local/bin
   echo "#"'!'"/usr/bin/bash" > /usr/local/bin/picard
   echo "java -jar /usr/local/bin/picard.jar \"\$@\"" >> /usr/local/bin/picard
