@@ -7,15 +7,15 @@ wildcard_constraints:
     lane = "[^/]+"
 # FUNCTIONS --------------------------------------------------------------------
 def getR1(wildcards):
-    return config["samples"][wildcards.replicate][wildcards.sample]\
+    return config["samples"][wildcards.sample][wildcards.replicate]\
 [wildcards.library][wildcards.lane]["R1"]
 
 def getR2(wildcards):
-    return config["samples"][wildcards.replicate][wildcards.sample]\
+    return config["samples"][wildcards.sample][wildcards.replicate]\
 [wildcards.library][wildcards.lane]["R2"]
 
 def getReadTag(wildcards):
-    return config["samples"][wildcards.replicate][wildcards.sample]\
+    return config["samples"][wildcards.sample][wildcards.replicate]\
 [wildcards.library][wildcards.lane]["rgTag"]
 # RULES ------------------------------------------------------------------------
 if layout == "single":
