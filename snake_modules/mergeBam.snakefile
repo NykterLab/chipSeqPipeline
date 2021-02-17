@@ -20,7 +20,7 @@ def getReplicateBams(wildcards):
                   library = libs,
                   lane = lanes)
 
-def formatBamsInput(input):
+def formatBamsInput(wildcards, input):
     return " ".join([" -I " + b for b in input])
 # RULES ------------------------------------------------------------------------
 rule mergeBamPerReplicates:
@@ -33,7 +33,7 @@ rule mergeBamPerReplicates:
         mergedBamIndex = outputDir + "alignments/sp_{sample}/"
         "{replicate}-sorted.bai"
     params:
-        bamsFormated = formatBamsInput()
+        bamsFormated = formatBamsInput
     benchmark:
         outputDir + "bench/mergeBamPerReplicates/"
         "sample_merge_{sample}_{replicate}.log"
