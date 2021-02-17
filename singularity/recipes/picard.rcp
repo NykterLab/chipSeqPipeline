@@ -1,0 +1,60 @@
+################################################################################
+#                               BWA CONTAINER                                  #
+################################################################################
+# BUILD ------------------------------------------------------------------------
+BootStrap: localimage
+From: ./build/base
+Stage: build
+
+%post
+
+  apk update
+  apk add bash
+  apk add wget
+  apk add openjdk11
+
+##########
+# PICARD #
+##########
+
+%appinstall picard
+
+  wget https://github.com/broadinstitute/picard/releases/download/\
+  2.20.5/picard.jar
+  mv picard.jar /usr/local/bin
+  echo "#"'!'"/usr/bin/bash" > /usr/local/bin/picard
+  echo "java -jar /usr/local/bin/picard.jar \"\$@\"" >> /usr/local/bin/picard
+  chmod +x /usr/local/bin/picard
+
+# PRODUCTION -------------------------------------------------------------------
+BootStrap: localimage
+From: ./build/base
+Stage: production
+
+%labels
+
+  Author "Thomas Bersez"
+  Version 1.0
+  Institution "NykterLab"
+
+%help
+
+  Picard image for CHIP-seq pipeline.
+  Based on base image.
+
+%environment
+
+  export PATH="/usr:$PATH"
+
+%post
+
+  apk update
+
+%files from build
+
+  /usr/local/bin/picard.jar /usr/local/bin/
+  /usr/local/bin/picard /usr/local/bin/
+
+%test
+
+  picard MergeSamFiles -version
