@@ -7,7 +7,6 @@ From: ./build/base
 %post
 
   apk update
-  apk add bash
   apk add wget
   apk add openjdk11
 

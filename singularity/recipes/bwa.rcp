@@ -9,7 +9,6 @@ Stage: build
 %post
 
   apk update
-  apk add bash
   apk add git
   apk add musl-dev zlib-dev make gcc
   apk add bzip2
