@@ -3,8 +3,9 @@
 def getReplicateLanes(wildcards):
     libs = []
     lanes = []
-    for lib in config["samples"][str(sample)][str(replicate)]:
-        for lane in config["samples"][str(sample)][str(replicate)][lib]:
+    for lib in config["samples"][wildcards.sample][wildcards.replicate]:
+        for lane in config["samples"][wildcards.sample][wildcards.replicate]\
+        [lib]:
             libs.append(lib)
             lanes.append(lane)
     return expand(outputDir + \
