@@ -47,7 +47,7 @@ rule mergeBamPerReplicates:
         """
         picard MergeSamFiles \
         {params.bamsFormated} \
-        -O {output.merged_bam} \
+        -O {output.mergedBam} \
         --REFERENCE_SEQUENCE {genome} \
         --CREATE_INDEX
         """
