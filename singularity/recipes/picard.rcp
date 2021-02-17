@@ -1,10 +1,8 @@
 ################################################################################
-#                               BWA CONTAINER                                  #
+#                             PICARD CONTAINER                                 #
 ################################################################################
-# BUILD ------------------------------------------------------------------------
 BootStrap: localimage
 From: ./build/base
-Stage: build
 
 %post
 
@@ -12,24 +10,6 @@ Stage: build
   apk add bash
   apk add wget
   apk add openjdk11
-
-##########
-# PICARD #
-##########
-
-%appinstall picard
-
-  wget \
-  https://github.com/broadinstitute/picard/releases/download/2.20.5/picard.jar
-  mv picard.jar /usr/local/bin
-  echo "#"'!'"/usr/bin/bash" > /usr/local/bin/picard
-  echo "java -jar /usr/local/bin/picard.jar \"\$@\"" >> /usr/local/bin/picard
-  chmod +x /usr/local/bin/picard
-
-# PRODUCTION -------------------------------------------------------------------
-BootStrap: localimage
-From: ./build/base
-Stage: production
 
 %labels
 
@@ -47,11 +27,15 @@ Stage: production
   export PATH="/usr:$PATH"
   alias picard="/usr/local/bin/picard"
 
-%post
+##########
+# PICARD #
+##########
 
-  apk update
+%appinstall picard
 
-%files from build
-
-  /usr/local/bin/picard.jar /usr/local/bin/
-  /usr/local/bin/picard /usr/local/bin/
+  wget \
+  https://github.com/broadinstitute/picard/releases/download/2.20.5/picard.jar
+  mv picard.jar /usr/local/bin
+  echo "#"'!'"/usr/bin/bash" > /usr/local/bin/picard
+  echo "java -jar /usr/local/bin/picard.jar \"\$@\"" >> /usr/local/bin/picard
+  chmod +x /usr/local/bin/picard
