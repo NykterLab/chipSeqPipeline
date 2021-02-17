@@ -56,4 +56,4 @@ rule all:
     message:
         "DONE; {}".format(stamp)
     input:
-        getMerged()
+        getLanes()
