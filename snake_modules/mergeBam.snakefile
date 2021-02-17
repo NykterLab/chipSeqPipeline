@@ -5,7 +5,7 @@ def getRepStructure(wildcards):
 
 
 def getReplicateBams(wildcards):
-    replicateStruct = getRepStructure()
+    replicateStruct = getRepStructure(wildcards)
     libs = []
     lanes = []
     for lib in replicateStruct:
