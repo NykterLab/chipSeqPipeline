@@ -43,6 +43,8 @@ rule mergeBamPerReplicates:
     log:
         outputDir + "snakemake_logs/" \
         + stamp + "{sample}_{replicate}_mergeBamPerReplicates.log"
+    singularity:
+        "{}singularity/build/picard".format(execDir)
     shell:
         """
         picard MergeSamFiles \
