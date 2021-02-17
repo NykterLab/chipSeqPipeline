@@ -26,10 +26,10 @@ rule mergeBamPerReplicates:
     input:
         bams = getReplicateBams
     output:
-        mergedBam = outputDir + "alignments/replicatesBams/"
-        "{sample}-{replicate}-sorted.bam",
-        mergedBamIndex = outputDir + "alignments/replicatesBams/"
-        "{sample}-{replicate}-sorted.bai"
+        mergedBam = outputDir + "alignments/sp_{sample}/"
+        "{replicate}-sorted.bam",
+        mergedBamIndex = outputDir + "alignments/sp_{sample}/"
+        "{replicate}-sorted.bai"
     params:
         bamsFormated = formatBamsInput
     benchmark:

@@ -46,8 +46,8 @@ def getMerged():
         for rep in config["samples"][str(sample)]:
             samples.append(sample)
             reps.append(reps)
-    return expand(outputDir + "alignments/replicatesBams/"
-    "{sample}-{replicate}-sorted.bam",
+    return expand(outputDir + "alignments/sp_{sample}/"
+    "{replicate}-sorted.bam",
     zip,
     sample = samples,
     replicate = reps)
