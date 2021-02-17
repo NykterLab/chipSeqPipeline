@@ -41,6 +41,8 @@ if layout == "single":
         log:
             outputDir + "snakemake_logs/" \
             + stamp + "{replicate}-{sample}-{library}-{lane}_bwaPerLane.log"
+        singularity:
+            "{}singularity/build/bwa".format(execDir)
         run:
             shell("""
             mkdir -p {params.tmp_dir}
@@ -78,6 +80,8 @@ elif layout == "paired":
         log:
             outputDir + "snakemake_logs/" \
             + stamp + "{replicate}-{sample}-{library}-{lane}_bwaPerLane.log"
+        singularity:
+            "{}singularity/build/bwa".format(execDir)
         run:
             shell("""
             mkdir -p {params.tmp_dir}
