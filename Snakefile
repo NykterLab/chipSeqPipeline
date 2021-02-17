@@ -47,7 +47,7 @@ def getMerged():
         for rep in config["samples"][sample].keys():
             print(rep)
             samples.append(sample)
-            reps.append(reps)
+            reps.append(rep)
     print(expand(outputDir + "alignments/sp_{sample}/"
     "{replicate}-sorted.bam",
     zip,
