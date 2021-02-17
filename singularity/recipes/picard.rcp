@@ -45,6 +45,7 @@ Stage: production
 %environment
 
   export PATH="/usr:$PATH"
+  alias picard="/usr/local/bin/picard"
 
 %post
 
@@ -57,4 +58,4 @@ Stage: production
 
 %test
 
-  picard MergeSamFiles -version
+  /usr/local/bin/picard MergeSamFiles -version
