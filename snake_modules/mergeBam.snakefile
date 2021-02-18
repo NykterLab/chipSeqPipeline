@@ -21,7 +21,7 @@ def getReplicateBams(wildcards):
                   lane = lanes)
 
 def formatBamsInput(wildcards, input):
-    return " ".join([" -I " + b for b in input])
+    return " ".join([" I=" + b for b in input])
 # RULES ------------------------------------------------------------------------
 rule mergeBamPerReplicates:
     """Merge aligned read per replicates."""
@@ -49,7 +49,7 @@ rule mergeBamPerReplicates:
         """
         picard MergeSamFiles \
         {params.bamsFormated} \
-        -O {output.mergedBam} \
+        O={output.mergedBam} \
         --REFERENCE_SEQUENCE {genome} \
         --CREATE_INDEX
         """
