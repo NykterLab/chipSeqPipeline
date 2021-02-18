@@ -48,7 +48,7 @@ if layout == "single":
             mkdir -p {params.tmp_dir}
             bwa mem \
             -t 8 \
-            -R '{params.rgTag}' \
+            -R {params.rgTag} \
             {input.ref} \
             {input.R1} \
             | samtools view -@ 8 -bS - \
@@ -87,7 +87,7 @@ elif layout == "paired":
             mkdir -p {params.tmp_dir}
             bwa mem \
             -t 8 \
-            -R '{params.rgTag}' \
+            -R {params.rgTag} \
             {input.ref} \
             {input.R1} \
             {input.R2} \
