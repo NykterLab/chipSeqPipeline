@@ -30,8 +30,8 @@ rule mergeBamPerReplicates:
     output:
         mergedBam = outputDir + "alignments/sp_{sample}/"
         "{replicate}-sorted.bam",
-        mergedBamIndex = outputDir + "alignments/sp_{sample}/"
-        "{replicate}-sorted.bai"
+        #mergedBamIndex = outputDir + "alignments/sp_{sample}/"
+        #"{replicate}-sorted.bai"
     params:
         bamsFormated = formatBamsInput
     benchmark:
@@ -50,6 +50,5 @@ rule mergeBamPerReplicates:
         picard MergeSamFiles \
         {params.bamsFormated} \
         O={output.mergedBam} \
-        --REFERENCE_SEQUENCE {genome} \
-        --CREATE_INDEX
+        MERGE_SEQUENCE_DICTIONARIES=true
         """
