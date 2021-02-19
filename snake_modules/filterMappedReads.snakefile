@@ -35,6 +35,6 @@ rule filterMappedReads:
         VALIDATION_STRINGENCY=LENIENT \
         ASSUME_SORTED=true \
         REMOVE_DUPLICATES=true \
-        METRICS_FILE={output.markdupMetrics}
+        METRICS_FILE={output.markdupMetrics} \
         OUTPUT={output.filteredBam}
         """
