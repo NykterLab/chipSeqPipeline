@@ -48,13 +48,8 @@ def getMerged():
             print(rep)
             samples.append(sample)
             reps.append(rep)
-    print(expand(outputDir + "alignments/sp_{sample}/"
-    "{replicate}-sorted.bam",
-    zip,
-    sample = samples,
-    replicate = reps))
     return expand(outputDir + "alignments/sp_{sample}/"
-    "{replicate}-sorted.bam",
+    "{replicate}-sorted.bai",
     zip,
     sample = samples,
     replicate = reps)

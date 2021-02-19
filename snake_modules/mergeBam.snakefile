@@ -36,7 +36,7 @@ rule mergeBamPerReplicates:
         bamsFormated = formatBamsInput
     benchmark:
         outputDir + "bench/mergeBamPerReplicates/"
-        "sample_merge_{sample}_{replicate}.log"
+        "mergeBamPerReplicates_{sample}_{replicate}.log"
     message:
         "Mergin BWA alignment for sample {wildcards.sample}, "
         "replicate: {wildcards.replicate}."
@@ -51,4 +51,30 @@ rule mergeBamPerReplicates:
         {params.bamsFormated} \
         O={output.mergedBam} \
         MERGE_SEQUENCE_DICTIONARIES=true
+        """
+
+rule indexBam:
+    input:
+        mergedBam = outputDir + "alignments/sp_{sample}/"
+        "{replicate}-sorted.bam"
+    output:
+        mergedBamIndex = outputDir + "alignments/sp_{sample}/"
+        "{replicate}-sorted.bai"
+    benchmark:
+        outputDir + "bench/indexBam/"
+        "indexBam_{sample}_{replicate}.log"
+    message:
+        "Indexing bam file for {wildcards.sample}, "
+        "replicate: {wildcards.replicate}."
+    log:
+        outputDir + "snakemake_logs/" \
+        + stamp + "{sample}_{replicate}_indexBam.log"
+    singularity:
+        "{}singularity/build/base".format(execDir)
+    shell:
+        """
+        samtools \
+        index \
+        -@ 4 \
+        {input.mergedBam}
         """
