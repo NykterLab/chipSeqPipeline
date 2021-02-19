@@ -20,6 +20,7 @@ stamp = str(time.strftime('%Y-%m-%d-%H-%M-%S', ts))
 # LOAD RULE MODULES ------------------------------------------------------------
 include: "{}snake_modules/bwa.snakefile".format(execDir)
 include: "{}snake_modules/mergeBam.snakefile".format(execDir)
+include: "{}snake_modules/filterMappedReads.snakefile".format(execDir)
 # RULE ALL ---------------------------------------------------------------------
 # TMP input:
 def getLanes():
@@ -48,8 +49,8 @@ def getMerged():
             print(rep)
             samples.append(sample)
             reps.append(rep)
-    return expand(outputDir + "alignments/sp_{sample}/"
-    "{replicate}-sorted.bam.bai",
+    return expand(filteredBam = outputDir + "alignments/sp_{sample}/"
+    "{replicate}-filtered.bam",
     zip,
     sample = samples,
     replicate = reps)
