@@ -59,7 +59,7 @@ rule indexBam:
         "{replicate}-sorted.bam"
     output:
         mergedBamIndex = outputDir + "alignments/sp_{sample}/"
-        "{replicate}-sorted.bai"
+        "{replicate}-sorted.bam.bai"
     benchmark:
         outputDir + "bench/indexBam/"
         "indexBam_{sample}_{replicate}.log"
