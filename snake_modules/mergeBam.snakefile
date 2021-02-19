@@ -9,7 +9,6 @@ def getReplicateBams(wildcards):
     libs = []
     lanes = []
     for lib in replicateStruct.keys():
-        print(lib)
         for lane in replicateStruct[lib]:
             libs.append(lib)
             lanes.append(lane)
