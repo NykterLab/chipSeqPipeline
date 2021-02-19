@@ -9,7 +9,9 @@ rule filterMappedReads:
         "{replicate}-sorted.bam.bai"
     output:
         filteredBam = outputDir + "alignments/sp_{sample}/"
-        "{replicate}-filtered.bam"
+        "{replicate}-filtered.bam",
+        markdupMetrics = outputDir + "stats/sp_{sample}/"
+        "{replicate}-filtered-markdup-metrics.txt"
     benchmark:
         outputDir + "bench/indexBam/"
         "filterMappedReads_{sample}_{replicate}.log"
@@ -33,5 +35,6 @@ rule filterMappedReads:
         VALIDATION_STRINGENCY=LENIENT \
         ASSUME_SORTED=true \
         REMOVE_DUPLICATES=true \
+        METRICS_FILE={output.markdupMetrics}
         OUTPUT={output.filteredBam}
         """
