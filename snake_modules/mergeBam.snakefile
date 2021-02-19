@@ -1,7 +1,6 @@
 # BAM MERGING ------------------------------------------------------------------
 # FUNCTIONS --------------------------------------------------------------------
 def getRepStructure(wildcards):
-    print(wildcards.replicate)
     return config["samples"][wildcards.sample][wildcards.replicate]
 
 def getReplicateBams(wildcards):
