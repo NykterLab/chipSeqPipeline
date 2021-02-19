@@ -50,7 +50,7 @@ def getMerged():
             samples.append(sample)
             reps.append(rep)
     return expand(outputDir + "alignments/sp_{sample}/"
-    "{replicate}-filtered.bam",
+    "{replicate}-filtered.bam.bai",
     zip,
     sample = samples,
     replicate = reps)

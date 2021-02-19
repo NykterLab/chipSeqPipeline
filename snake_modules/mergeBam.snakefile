@@ -28,10 +28,8 @@ rule mergeBamPerReplicates:
     input:
         bams = getReplicateBams
     output:
-        mergedBam = outputDir + "alignments/sp_{sample}/"
-        "{replicate}-sorted.bam",
-        #mergedBamIndex = outputDir + "alignments/sp_{sample}/"
-        #"{replicate}-sorted.bai"
+        mergedBam = temp(outputDir + "alignments/sp_{sample}/"
+        "{replicate}-sorted.bam")
     params:
         bamsFormated = formatBamsInput
     benchmark:
@@ -54,12 +52,13 @@ rule mergeBamPerReplicates:
         """
 
 rule indexBam:
+    "Index merged bam."
     input:
         mergedBam = outputDir + "alignments/sp_{sample}/"
         "{replicate}-sorted.bam"
     output:
-        mergedBamIndex = outputDir + "alignments/sp_{sample}/"
-        "{replicate}-sorted.bam.bai"
+        mergedBamIndex = temp(outputDir + "alignments/sp_{sample}/"
+        "{replicate}-sorted.bam.bai")
     benchmark:
         outputDir + "bench/indexBam/"
         "indexBam_{sample}_{replicate}.log"
