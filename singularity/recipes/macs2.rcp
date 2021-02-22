@@ -2,14 +2,7 @@
 #                                  MACS2                                       #
 ################################################################################
 BootStrap: docker
-From: alpine:latest
-
-%post
-
-  apk update
-  apk add python3
-  ln -s `which python3` /bin/python
-  apk add py-pip
+From: fooliu/macs2
 
 %labels
 
@@ -20,11 +13,3 @@ From: alpine:latest
 %help
 
   MACS2 image for Chip-seq pipeline.
-
-#########
-# MACS2 #
-#########
-
-%appinstall macs2
-
-  pip install MACS2
