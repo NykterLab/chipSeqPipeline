@@ -46,8 +46,8 @@ def getMerged():
         for rep in config["samples"][sample].keys():
             samples.append(sample)
             reps.append(rep)
-    return expand(outputDir + "alignments/sp_{sample}/"
-    "{replicate}-filtered.bam.bai",
+    return expand(outputDir + "stats/sp_{sample}/"
+    "{replicate}-filtered-samtools-stats.txt",
     zip,
     sample = samples,
     replicate = reps)

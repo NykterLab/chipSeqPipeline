@@ -46,7 +46,7 @@ rule filterMappedReads:
         """
 
 rule indexFilteredBam:
-    "Index filtered bam."
+    """Index filtered bam."""
     input:
         filteredBam = outputDir + "alignments/sp_{sample}/"
         "{replicate}-filtered.bam"
@@ -70,4 +70,30 @@ rule indexFilteredBam:
         index \
         -@ 4 \
         {input.filteredBam}
+        """
+
+rule getFilteredBamStats:
+    """Compute statistics on filtered bam."""
+    input:
+        filteredBam = outputDir + "alignments/sp_{sample}/"
+        "{replicate}-filtered.bam"
+    output:
+        bamMetrics = outputDir + "stats/sp_{sample}/"
+        "{replicate}-filtered-samtools-stats.txt"
+    message:
+        "Compute statistics on filtered bam for {wildcards.sample}, "
+        "replicate: {wildcards.replicate}."
+    log:
+        outputDir + "snakemake_logs/" \
+        + stamp + "{sample}_{replicate}_getFilteredBamStats.log"
+    singularity:
+        "{}singularity/build/base".format(execDir)
+    shell:
+        """
+        samtools \
+        stats \
+        {input.filteredBam} \
+        | grep ^SN | \
+        cut -f 2- \
+        > {output.bamMetrics}
         """
