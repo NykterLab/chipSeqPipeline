@@ -2,19 +2,20 @@
 # FUNCTIONS --------------------------------------------------------------------
 # RULES ------------------------------------------------------------------------
 rule filterMappedReads:
-    """Remove unmapped reads, secondary alignments and duplicates."""
+    """
+    Remove unmapped reads, secondary alignments,
+    low quality mapping, (Samtools) and duplicates (Picard MarkDuplicates).
+    """
     input:
         bam = outputDir + "alignments/sp_{sample}/"
-        "{replicate}-sorted.bam",
-        bamIndex = outputDir + "alignments/sp_{sample}/"
-        "{replicate}-sorted.bam.bai"
+        "{replicate}-sorted.bam"
     output:
         filteredBam = outputDir + "alignments/sp_{sample}/"
         "{replicate}-filtered.bam",
         markdupMetrics = outputDir + "stats/sp_{sample}/"
         "{replicate}-filtered-markdup-metrics.txt"
     params:
-        qualityThreshold = 1804 if layout == "paired" else 1796
+        samFlag = 780 if layout == "paired" else 772
     benchmark:
         outputDir + "bench/indexBam/"
         "filterMappedReads_{sample}_{replicate}.log"
@@ -30,8 +31,9 @@ rule filterMappedReads:
         """
         samtools \
         view \
-        -F {params.qualityThreshold} \
-        -q 30 \
+        -@ 2 \
+        -F {params.samFlag} \
+        -q 20 \
         -b {input.bam} | \
         picard MarkDuplicates \
         INPUT=/dev/stdin \
