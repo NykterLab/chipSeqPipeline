@@ -30,7 +30,7 @@ rule filterMappedReads:
     shell:
         """
         picard MarkDuplicates \
-        INPUT=/dev/stdin \
+        INPUT={input.bam} \
         VALIDATION_STRINGENCY=LENIENT \
         ASSUME_SORTED=false \
         REMOVE_DUPLICATES=true \
@@ -41,7 +41,7 @@ rule filterMappedReads:
         -@ 2 \
         -F {params.samFlag} \
         -q 20 \
-        -b {input.bam} > \
+        -b - > \
         {output.filteredBam}
         """
 
