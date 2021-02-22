@@ -29,19 +29,20 @@ rule filterMappedReads:
         "{}singularity/build/picard".format(execDir)
     shell:
         """
+        picard MarkDuplicates \
+        INPUT=/dev/stdin \
+        VALIDATION_STRINGENCY=LENIENT \
+        ASSUME_SORTED=false \
+        REMOVE_DUPLICATES=true \
+        METRICS_FILE={output.markdupMetrics} \
+        OUTPUT=/dev/stdout | \
         samtools \
         view \
         -@ 2 \
         -F {params.samFlag} \
         -q 20 \
-        -b {input.bam} | \
-        picard MarkDuplicates \
-        INPUT=/dev/stdin \
-        VALIDATION_STRINGENCY=LENIENT \
-        ASSUME_SORTED=false \
-        REMOVE_DUPLICATES=false \
-        METRICS_FILE={output.markdupMetrics} \
-        OUTPUT={output.filteredBam}
+        -b {input.bam} > \
+        {output.filteredBam}
         """
 
 rule indexFilteredBam:
