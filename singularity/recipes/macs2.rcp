@@ -1,0 +1,28 @@
+################################################################################
+#                                  MACS2                                       #
+################################################################################
+BootStrap: localimage
+From: ./build/base
+
+%post
+
+  apk update
+  apk add py-pip
+
+%labels
+
+  Author "Thomas Bersez"
+  Version 1.0
+  Institution "NykterLab"
+
+%help
+
+  MACS2 image for Chip-seq pipeline.
+
+#########
+# MACS2 #
+#########
+
+%appinstall macs2
+
+  pip install MACS2
