@@ -35,14 +35,10 @@ rule filterMappedReads:
         -F {params.samFlag} \
         -q 20 \
         -b {input.bam} | \
-        samtools \
-        sort \
-        -@ 2 \
-        - | \
         picard MarkDuplicates \
         INPUT=/dev/stdin \
         VALIDATION_STRINGENCY=LENIENT \
-        ASSUME_SORTED=true \
+        ASSUME_SORTED=false \
         REMOVE_DUPLICATES=false \
         METRICS_FILE={output.markdupMetrics} \
         OUTPUT={output.filteredBam}
