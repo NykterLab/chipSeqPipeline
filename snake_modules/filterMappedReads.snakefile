@@ -38,8 +38,8 @@ rule filterMappedReads:
         picard MarkDuplicates \
         INPUT=/dev/stdin \
         VALIDATION_STRINGENCY=LENIENT \
-        ASSUME_SORTED=true \
-        REMOVE_DUPLICATES=true \
+        ASSUME_SORTED=false \
+        REMOVE_DUPLICATES=false \
         METRICS_FILE={output.markdupMetrics} \
         OUTPUT={output.filteredBam}
         """
