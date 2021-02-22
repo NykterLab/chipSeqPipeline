@@ -1,12 +1,14 @@
 ################################################################################
 #                                  MACS2                                       #
 ################################################################################
-BootStrap: localimage
-From: ./build/base
+BootStrap: docker
+From: alpine:latest
 
 %post
 
   apk update
+  apk add python3
+  ln -s `which python3` /bin/python
   apk add py-pip
 
 %labels
@@ -25,4 +27,4 @@ From: ./build/base
 
 %appinstall macs2
 
-  pip install MACS2 --user
+  pip install MACS2
