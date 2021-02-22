@@ -25,4 +25,4 @@ From: ./build/base
 
 %appinstall macs2
 
-  pip install MACS2
+  pip install MACS2 --user
