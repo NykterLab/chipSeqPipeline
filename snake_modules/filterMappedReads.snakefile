@@ -15,7 +15,7 @@ rule filterMappedReads:
         markdupMetrics = outputDir + "stats/sp_{sample}/"
         "{replicate}-filtered-markdup-metrics.txt"
     params:
-        samFlag = 780 if layout == "paired" else 772
+        samFlag = 2828
     benchmark:
         outputDir + "bench/indexBam/"
         "filterMappedReads_{sample}_{replicate}.log"
