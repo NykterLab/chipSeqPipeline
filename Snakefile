@@ -18,11 +18,10 @@ samples = config["samples"].keys()
 ts = time.localtime()
 stamp = str(time.strftime('%Y-%m-%d-%H-%M-%S', ts))
 # LOAD RULE MODULES ------------------------------------------------------------
-include:
-    "{}snake_modules/bwa.snakefile".format(execDir),
-    "{}snake_modules/mergeBam.snakefile".format(execDir),
-    "{}snake_modules/filterMappedReads.snakefile".format(execDir),
-    "{}snake_modules/peakCalling.snakefile".format(execDir)
+include: "{}snake_modules/bwa.snakefile".format(execDir)
+include: "{}snake_modules/mergeBam.snakefile".format(execDir)
+include: "{}snake_modules/filterMappedReads.snakefile".format(execDir)
+include: "{}snake_modules/peakCalling.snakefile".format(execDir)
 # WILDCARDS CONSTRAINS ---------------------------------------------------------
 wildcard_constraints:
     replicate = "[^/]+",
