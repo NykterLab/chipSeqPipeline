@@ -18,9 +18,11 @@ samples = config["samples"].keys()
 ts = time.localtime()
 stamp = str(time.strftime('%Y-%m-%d-%H-%M-%S', ts))
 # LOAD RULE MODULES ------------------------------------------------------------
-include: "{}snake_modules/bwa.snakefile".format(execDir)
-include: "{}snake_modules/mergeBam.snakefile".format(execDir)
-include: "{}snake_modules/filterMappedReads.snakefile".format(execDir)
+include:
+    "{}snake_modules/bwa.snakefile".format(execDir),
+    "{}snake_modules/mergeBam.snakefile".format(execDir),
+    "{}snake_modules/filterMappedReads.snakefile".format(execDir),
+    "{}snake_modules/peakCalling.snakefile".format(execDir)
 # TMP input: -------------------------------------------------------------------
 def getLanes():
     samples = []
@@ -46,8 +48,8 @@ def getMerged():
         for rep in config["samples"][sample].keys():
             samples.append(sample)
             reps.append(rep)
-    return expand(outputDir + "stats/sp_{sample}/"
-    "{replicate}-filtered-samtools-stats.txt",
+    return expand(outputDir + "calls/sp_{sample}/"
+    "rep_{replicate}/{replicate}_summits.bed",
     zip,
     sample = samples,
     replicate = reps)

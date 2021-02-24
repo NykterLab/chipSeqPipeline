@@ -1,0 +1,34 @@
+---
+title: "Chip-Seq pipeline userguide"
+author: "Thomas Bersez"
+date: "2/24/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# In brief
+
+TO FILL
+
+# Singularity containers
+
+Singularity containers are used a run environment
+for the pipeline. **Building containers requires sudo rights**.
+
+
+# Quick start
+
+## Preprocessing script
+
+```{bash, eval = F}
+
+```
+
+## Snakemake
+
+```{bash, eval = F}
+
+```
