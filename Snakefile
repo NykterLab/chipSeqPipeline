@@ -52,7 +52,8 @@ def getMerged():
     "rep_{replicate}/{replicate}_summits.bed",
     zip,
     sample = samples,
-    replicate = reps)
+    replicate = reps,
+    replicate= reps)
 # RULE ALL ---------------------------------------------------------------------
 rule all:
     message:
