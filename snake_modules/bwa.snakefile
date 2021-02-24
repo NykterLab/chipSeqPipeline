@@ -1,10 +1,4 @@
 # ALIGNMENT --------------------------------------------------------------------
-# WILDCARDS CONSTRAINS ---------------------------------------------------------
-wildcard_constraints:
-    replicate = "[^/]+",
-    sample = "[^/]+",
-    library = "[^/]+",
-    lane = "[^/]+"
 # FUNCTIONS --------------------------------------------------------------------
 def getR1(wildcards):
     return config["samples"][wildcards.sample][wildcards.replicate]\

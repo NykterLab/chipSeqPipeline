@@ -23,24 +23,13 @@ include:
     "{}snake_modules/mergeBam.snakefile".format(execDir),
     "{}snake_modules/filterMappedReads.snakefile".format(execDir),
     "{}snake_modules/peakCalling.snakefile".format(execDir)
+# WILDCARDS CONSTRAINS ---------------------------------------------------------
+wildcard_constraints:
+    replicate = "[^/]+",
+    sample = "[^/]+",
+    library = "[^/]+",
+    lane = "[^/]+"
 # TMP input: -------------------------------------------------------------------
-def getLanes():
-    samples = []
-    reps = []
-    libs = []
-    lanes = []
-    for sample in config["samples"]:
-        for rep in config["samples"][str(sample)]:
-            for lib in config["samples"][str(sample)][str(rep)]:
-                for lane in config["samples"][str(sample)][str(rep)][str(lib)]:
-                    samples.append(sample)
-                    reps.append(rep)
-                    libs.append(lib)
-                    lanes.append(lane)
-    return expand(outputDir + "alignments/sorted_reads/sp_{sample}/"
-    "rep_{replicate}/lib_{library}/lane_{lane}_sorted.bam", zip,
-    sample = samples, replicate = reps, library = libs, lane = lanes)
-
 def getMerged():
     samples = []
     reps = []
