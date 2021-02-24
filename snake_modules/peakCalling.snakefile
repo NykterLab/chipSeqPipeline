@@ -21,9 +21,6 @@ rule macs2PeakCalling:
         "rep_{replicate}/{replicate}_peaks.narrowPeak",
         summits= outputDir + "calls/sp_{sample}/"
         "rep_{replicate}/{replicate}_summits.bed"
-    params:
-        #genomeSize
-        expName = "{replicate}"
     benchmark:
         outputDir + "bench/macs2PeakCalling/"
         "macs2PeakCalling_{sample}_{replicate}.log"
@@ -42,5 +39,5 @@ rule macs2PeakCalling:
         -f BAM \
         -t {input.filteredBam} \
         --outdir {output.callDir} \
-        --name {params.expName}
+        --name {wildcards.replicate}
         """
