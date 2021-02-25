@@ -1,6 +1,6 @@
 ---
 title: "Chip-Seq pipeline userguide"
-author: "Thomas Bersez"
+author: "Thomas Bersez - Nykter Lab"
 date: "2/24/2021"
 output: html_document
 ---
@@ -18,17 +18,86 @@ TO FILL
 Singularity containers are used a run environment
 for the pipeline. **Building containers requires sudo rights**.
 
+Build containers must be placed in the `singularity/build/` directory.
+
+To build containers used the following commands from the `singularity` directory:
+
+```{bash, eval = F}
+mkdir -p build/ logs/ test/
+sudo singularity build build/base recipes/base.rcp > logs/base.log
+sudo singularity build build/bwa recipes/bwa.rcp > logs/bwa.log
+sudo singularity build build/picard recipes/picard.rcp > logs/picard.log
+sudo singularity build build/macs2 recipes/macs2.rcp > logs/macs2.log
+```
 
 # Quick start
 
-## Preprocessing script
+## Input
+
+The pipeline support **single and paired end fastq** inputs.
+The user must fill a sample file in csv format, with the following headers:
 
 ```{bash, eval = F}
-
+SAMPLE,REPLICATE,LIBRARY,LANE,R1,R2
 ```
+
+The R2 column must be removed for single end input.
+Samples, replicates, libraries and lanes names cannot be
+numbers. R1 and R2 must be **absolute paths** to fastq files.
+
+## Preprocessing script
+
+The preprocessing script is run as follow:
+
+```{bash, eval = F}
+python python/CreateConfigFile.py 
+[-h] [--sampleSheet SAMPLESHEET] [--layout LAYOUT][--genome GENOME] [--outputDir OUTPUTDIR] [--controlTracks CONTROLTRACKS] [--execDir EXECDIR]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --sampleSheet SAMPLESHEET  Absolute path to sample sheet.
+  --layout LAYOUT       Sequencing layout, single or paired.
+  --genome GENOME       Absolute path to reference genome; must be indexed
+                        with bwa.
+  --outputDir OUTPUTDIR Absolute path to the output directory, will be created
+                        MUST NOT EXIST.
+  --execDir EXECDIR     Path to pipeline git repository.
+```
+
+The script creates a configuration file `config.yaml` in the output directory.
 
 ## Snakemake
 
-```{bash, eval = F}
+Reading [Snakemake command line userguide](https://snakemake.readthedocs.io/en/stable/executing/cli.html) is recommended.
 
+The pipeline is run as follow:
+
+```{bash, eval = F}
+snakemake \
+--configfile /path/to/config.yaml \
+-j <number of jobs to run in parallel> \
+--use-singularity \
+--singularity-args "-B <singularity bind paths>" \
+--notemp
 ```
+
+Please use `snakemake --help` to get more information about snakemake command line.
+
+## Outputs
+
+All outputs can be found in the output directory:
+
+* `alignments/`: mapped and filtered reads.
+* `calls/`: peak calling data.
+* `stats/`: mapping, duplication and peak calling statistics.
+* `snakemake_logs/`, `bench/`, `slurm_logs/`: log files for debugging.
+
+# WIP / TODO
+
+Left to do (non comprehensive list):
+
+* Control tracks support.
+* Cross replicates correlation.
+* Stats parsing and reporting.
+* Motif discovery.
+* Slurm roadsheet and resources allocation.
